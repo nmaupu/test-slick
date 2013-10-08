@@ -7,5 +7,5 @@ import org.newdawn.slick.SlickException;
 public interface IGameComponent {
 	public void render(Graphics g);
 	public void update(GameContainer container, int delta) throws SlickException;
-	
+	public int getID();
 }

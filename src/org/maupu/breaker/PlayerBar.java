@@ -8,20 +8,24 @@ import org.newdawn.slick.SlickException;
 import org.newdawn.slick.geom.Rectangle;
 
 public class PlayerBar implements IGameComponent {
-	public static final int BAR_WIDTH=100;
-	public static final int BAR_HEIGHT=20;
+	public static final int BAR_INITIAL_WIDTH=100;
+	public static final int BAR_INITIAL_HEIGHT=20;
 	public static final int BAR_INITIAL_X=260;
 	public static final int BAR_INITIAL_Y=455;
 	
-	private Input input;
 	private Rectangle bounds;
 	private float x,y;
+	private int width, height;
 	
-	public PlayerBar(Input input) {
-		this.input = input;
-		x=BAR_INITIAL_X;
-		y=BAR_INITIAL_Y;
-		bounds = new Rectangle(x, y, BAR_WIDTH, BAR_HEIGHT);
+	private IEventHandler notifyer;
+	
+	public PlayerBar(IEventHandler notifyer) {
+		this.notifyer = notifyer;
+		x = BAR_INITIAL_X;
+		y = BAR_INITIAL_Y;
+		width = BAR_INITIAL_WIDTH;
+		height = BAR_INITIAL_HEIGHT;
+		bounds = new Rectangle(x, y, width, height);
 	}
 
 	@Override
@@ -43,7 +47,34 @@ public class PlayerBar implements IGameComponent {
 				x = container.getWidth()-bounds.getWidth();
 		}
 		
+		// Notify new location
+		notifyer.eventOccurs(this);
+		
 		bounds.setLocation(x, y);
 	}
 	
+	public float getX() {
+		return x;
+	}
+	
+	public float getY() {
+		return y;
+	}
+	
+	public float getWidth() {
+		return bounds.getWidth();
+	}
+	
+	public float getHeight() {
+		return bounds.getHeight();
+	}
+	
+	protected void setBarSize(float w, float h) {
+		bounds.setSize(w, h);
+	}
+
+	@Override
+	public int getID() {
+		return GameState.PLAYER_BAR_ID;
+	}
 }

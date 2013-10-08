@@ -29,4 +29,9 @@ public class Brick implements IGameComponent {
 	public boolean isAlive() {
 		return isAlive;
 	}
+
+	@Override
+	public int getID() {
+		return GameState.BRICK_ID;
+	}
 }
