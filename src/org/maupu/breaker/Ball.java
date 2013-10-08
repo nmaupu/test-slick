@@ -7,6 +7,7 @@ import org.newdawn.slick.Input;
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.geom.Circle;
 import org.newdawn.slick.geom.Shape;
+import org.newdawn.slick.state.StateBasedGame;
 
 public class Ball implements IGameComponent {
 	public static final int BALL_DEFAULT_RADIUS = 10;
@@ -14,7 +15,7 @@ public class Ball implements IGameComponent {
 	private float x,y;
 	private float radius;
 	private float speedx = 5;
-	private float speedy = 5;
+	private float speedy = -5;
 	private boolean isMoving = false;
 	private boolean isAlive = true;
 	private IEventHandler eventHandler;
@@ -33,7 +34,7 @@ public class Ball implements IGameComponent {
 	}
 
 	@Override
-	public void update(GameContainer container, int delta) throws SlickException {
+	public void update(GameContainer container, StateBasedGame game, int delta) throws SlickException {
 		Input input = container.getInput();
 		
 		if(input.isKeyDown(Keyboard.KEY_SPACE)) {
@@ -48,14 +49,14 @@ public class Ball implements IGameComponent {
 			if(x > container.getWidth()-radius || x < radius)
 				speedx *= -1;
 			if(y > container.getHeight()+radius) {
-				// Ball entirely under bottom = looser !
-				// For now, you are safe ;)
-				speedy *= -1;
+				// Ball entirely under bottom = loose this ball !
+				//speedy *= -1;
+				this.isAlive = false;
 			}
 			if(y < radius)
 				speedy *= -1;
 			
-			// Ball is moving
+			// Ball is moving or is lost
 			eventHandler.eventOccurs(this);
 			setLocation(x, y);
 		}

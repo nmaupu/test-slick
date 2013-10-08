@@ -5,6 +5,7 @@ import org.newdawn.slick.Graphics;
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.geom.Rectangle;
 import org.newdawn.slick.geom.Shape;
+import org.newdawn.slick.state.StateBasedGame;
 
 public class Brick implements IGameComponent {
 	public static final int BRICK_WIDTH=40;
@@ -24,7 +25,7 @@ public class Brick implements IGameComponent {
 	}
 
 	@Override
-	public void update(GameContainer container, int delta) throws SlickException {
+	public void update(GameContainer container, StateBasedGame game, int delta) throws SlickException {
 		
 	}
 	

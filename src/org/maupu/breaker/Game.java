@@ -15,6 +15,8 @@ public class Game extends StateBasedGame {
 	@Override
 	public void initStatesList(GameContainer container) throws SlickException {
 		addState(new GameState());
+		addState(new LooseState());
+		addState(new WinState());
 	}
 
 	public static void main (String[] args) {

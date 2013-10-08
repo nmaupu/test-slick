@@ -7,6 +7,7 @@ import org.newdawn.slick.Input;
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.geom.Rectangle;
 import org.newdawn.slick.geom.Shape;
+import org.newdawn.slick.state.StateBasedGame;
 
 public class PlayerBar implements IGameComponent {
 	public static final int BAR_INITIAL_WIDTH=100;
@@ -35,7 +36,7 @@ public class PlayerBar implements IGameComponent {
 	}
 
 	@Override
-	public void update(GameContainer container, int delta) throws SlickException {
+	public void update(GameContainer container, StateBasedGame game, int delta) throws SlickException {
 		Input input = container.getInput();
 		
 		if(input.isKeyDown(Keyboard.KEY_LEFT)) {
