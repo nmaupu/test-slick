@@ -24,7 +24,7 @@ public class GameState extends BasicGameState implements IEventHandler {
 		player = new PlayerBar(this);
 		
 		balls.add(new Ball(player.getX()+player.getWidth()/2,
-						player.getY()-Ball.BALL_DEFAULT_RADIUS));
+						player.getY()-Ball.BALL_DEFAULT_RADIUS, this));
 		
 		for(int i=0; i<4; i++) {
 			for(int j=0; j<12; j++) {
@@ -75,6 +75,25 @@ public class GameState extends BasicGameState implements IEventHandler {
 				if(! b.isMoving())
 					setBallPositionRelativeToBar(b);
 			}
+		} else if(src instanceof Ball) {
+			// Ball is moving, checking collisions with bar or bricks
+			Iterator<Ball> itBalls = balls.iterator();
+			while(itBalls.hasNext()) {
+				Ball ball = itBalls.next();
+				
+				if (ball.getShape().intersects(player.getShape())) {
+					ball.setSpeedY(ball.getSpeedY()*-1);
+					ball.setLocation(ball.getX(), player.getY() - (ball.getRadius()*2)); // ugly isn't it ?
+				} else { // if touching bar, don't bother going through bricks
+					int size = bricks.size();
+					for (int i=0; i<size; i++) {
+						Brick brick = bricks.get(i);
+						if(ball.getShape().intersects(brick.getShape()) && brick.isAlive()) {
+							brick.destroyIt();
+						}
+					} // for
+				}
+			} // while
 		}
 	}
 	

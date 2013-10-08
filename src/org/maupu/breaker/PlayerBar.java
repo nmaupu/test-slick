@@ -6,6 +6,7 @@ import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Input;
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.geom.Rectangle;
+import org.newdawn.slick.geom.Shape;
 
 public class PlayerBar implements IGameComponent {
 	public static final int BAR_INITIAL_WIDTH=100;
@@ -76,5 +77,10 @@ public class PlayerBar implements IGameComponent {
 	@Override
 	public int getID() {
 		return GameState.PLAYER_BAR_ID;
+	}
+
+	@Override
+	public Shape getShape() {
+		return bounds;
 	}
 }

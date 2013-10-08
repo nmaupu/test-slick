@@ -4,6 +4,7 @@ import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.geom.Rectangle;
+import org.newdawn.slick.geom.Shape;
 
 public class Brick implements IGameComponent {
 	public static final int BRICK_WIDTH=40;
@@ -18,7 +19,8 @@ public class Brick implements IGameComponent {
 
 	@Override
 	public void render(Graphics g) {
-		g.draw(bounds);
+		if(isAlive)
+			g.draw(bounds);
 	}
 
 	@Override
@@ -29,9 +31,18 @@ public class Brick implements IGameComponent {
 	public boolean isAlive() {
 		return isAlive;
 	}
+	
+	public void destroyIt() {
+		isAlive = false;
+	}
 
 	@Override
 	public int getID() {
 		return GameState.BRICK_ID;
+	}
+
+	@Override
+	public Shape getShape() {
+		return bounds;
 	}
 }
